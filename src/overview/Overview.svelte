@@ -169,16 +169,16 @@
   }
 
   let imageOptions = [
-    {file: 'boat_1.jpeg', class: 'lifeboat'},
-    {file: 'bug_1.jpeg', class: 'ladybug'},
-    {file: 'pizza_1.jpeg', class: 'pizza'},
-    {file: 'pepper_1.jpeg', class: 'bell pepper'},
-    {file: 'bus_1.jpeg', class: 'bus'},
-    {file: 'koala_1.jpeg', class: 'koala'},
-    {file: 'espresso_1.jpeg', class: 'espresso'},
-    {file: 'panda_1.jpeg', class: 'red panda'},
-    {file: 'orange_1.jpeg', class: 'orange'},
-    {file: 'car_1.jpeg', class: 'sport car'}
+    {file: 'Highway_1.JPEG', class: 'highway'},
+    {file: 'Forest_1.JPEG', class: 'forest'},
+    {file: 'River_1.JPEG', class: 'river'},
+    {file: 'PermanentCrop_1.JPEG', class: 'permanent crop'},
+    {file: 'Industrial_1.JPEG', class: 'industrial'},
+    {file: 'AnnualCrop_1.JPEG', class: 'annual crop'},
+    {file: 'SeaLake_1.JPEG', class: 'sea or lake'},
+    {file: 'HerbaceousVegetation_1.JPEG', class: 'herbaceous vegetation'},
+    {file: 'Residential_1.JPEG', class: 'residential'},
+    {file: 'Pasture_1.JPEG', class: 'pasture'}
   ];
   let selectedImage = imageOptions[6].file;
 
