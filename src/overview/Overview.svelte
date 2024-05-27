@@ -176,9 +176,9 @@
     {file: 'Industrial_1.JPEG', class: 'industrial'},
     {file: 'AnnualCrop_1.JPEG', class: 'annual crop'},
     {file: 'SeaLake_1.JPEG', class: 'sea or lake'},
-    {file: 'HerbaceousVegetation_1.JPEG', class: 'herbaceous vegetation'},
+    {file: 'HerbaceousVegetation_2.JPEG', class: 'herbaceous vegetation'},
     {file: 'Residential_1.JPEG', class: 'residential'},
-    {file: 'Pasture_1.JPEG', class: 'pasture'}
+    {file: 'Pasture_4.JPEG', class: 'pasture'}
   ];
   let selectedImage = imageOptions[6].file;
 
