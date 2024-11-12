@@ -1,0 +1,47 @@
+<html>
+  <head></head>
+  <body>
+    <h1>Hi!!!</h1>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.5.2"></script>
+
+    <script type="module">
+      import { loadTrainedModel, constructCNN } from "./src/utils/cnn-tf.js";
+
+      let selectedImage = "Industrial_1.JPEG";
+      console.time("Construct cnn");
+      let model = await loadTrainedModel("./public/assets/data/model.json");
+      let cnn = await constructCNN(
+        `./public/assets/img/${selectedImage}`,
+        model
+      );
+
+      // Ignore the flatten layer for now
+      let flatten = cnn[cnn.length - 2];
+      cnn.splice(cnn.length - 2, 1);
+      cnn.flatten = flatten;
+      console.log(cnn);
+
+      console.timeEnd("Construct cnn");
+
+      // the input spectral band
+      let inputLayer = cnn[0];
+      console.log(inputLayer);
+      let greenBand = inputLayer[1];
+      console.log(greenBand.output); // 64x64
+
+      // the node 1 - green band of the convolution
+      let conv1Layer = cnn[1];
+      console.log(conv1Layer);
+      let firstNode = conv1Layer[1];
+
+      // the kernel
+      let kernel = firstNode.inputLinks[1].weight;
+      console.log(kernel);
+
+      // output of the node 1
+      let output = firstNode.output;
+      console.log(output);
+    </script>
+  </body>
+</html>
