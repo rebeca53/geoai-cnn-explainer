@@ -8,7 +8,7 @@
     <script type="module">
       import { loadTrainedModel, constructCNN } from "./src/utils/cnn-tf.js";
 
-      let selectedImage = "Industrial_1.JPEG";
+      let selectedImage = "Residential_1.JPEG";
       console.time("Construct cnn");
       let model = await loadTrainedModel("./public/assets/data/model.json");
       let cnn = await constructCNN(
@@ -26,22 +26,57 @@
 
       // the input spectral band
       let inputLayer = cnn[0];
-      console.log(inputLayer);
+      // console.log(inputLayer);
       let greenBand = inputLayer[1];
-      console.log(greenBand.output); // 64x64
+      // console.log(greenBand.output); // 64x64
+      let redBand = inputLayer[0];
+      console.log(redBand.output); // 64x64
+      // console.log(JSON.stringify({ inputMatrix: redBand.output }));
 
-      // the node 1 - green band of the convolution
-      let conv1Layer = cnn[1];
+      // the node 10 - red band of the convolution
+      let conv1Layer = cnn[1]; // first layer
       console.log(conv1Layer);
       let firstNode = conv1Layer[1];
+      let tenthNode = conv1Layer[9];
 
-      // the kernel
-      let kernel = firstNode.inputLinks[1].weight;
+      // the kernel in the red band
+      let kernel = tenthNode.inputLinks[0].weight;
       console.log(kernel);
 
+      // Save to JSON
+      // console.log(JSON.stringify({ kernelMatrix: kernel }));
+
       // output of the node 1
-      let output = firstNode.output;
-      console.log(output);
+      // let output = firstNode.output;
+      // console.log(output);
+
+      // console.log(tenthNode.output);
+      // console.log(JSON.stringify({ outputMatrix: tenthNode.output }));
+
+      // initializing a JavaScript object
+      const convDetail = {
+        inputMatrix: redBand.output,
+        kernelMatrix: kernel,
+      };
+
+      saveJsonObjToFile(convDetail);
+      function saveJsonObjToFile(saveObj) {
+        // const saveObj = { a: 3 }; // tmp
+
+        // file setting
+        const text = JSON.stringify(saveObj);
+        const name = "sample.json";
+        const type = "text/plain";
+
+        // create file
+        const a = document.createElement("a");
+        const file = new Blob([text], { type: type });
+        a.href = URL.createObjectURL(file);
+        a.download = name;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }
     </script>
   </body>
 </html>

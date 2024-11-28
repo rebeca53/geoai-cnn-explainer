@@ -802,6 +802,8 @@
   }
 
   const nodeClickHandler = (d, i, g) => {
+    console.log("d "+d+", i "+i+",g "+g);
+    
     d3.event.stopPropagation();
     let nodeIndex = d.index;
 
