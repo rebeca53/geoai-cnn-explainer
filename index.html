@@ -43,29 +43,81 @@
       let kernel = tenthNode.inputLinks[0].weight;
       console.log(kernel);
 
-      // Save to JSON
-      // console.log(JSON.stringify({ kernelMatrix: kernel }));
+      // the activation Layer
+      console.log(tenthNode.output);
 
-      // output of the node 1
-      // let output = firstNode.output;
-      // console.log(output);
+      let act1Layer = cnn[2];
+      console.log(act1Layer);
+      let act1Layer10thNode = act1Layer[9];
+      console.log(act1Layer10thNode);
 
-      // console.log(tenthNode.output);
-      // console.log(JSON.stringify({ outputMatrix: tenthNode.output }));
+      // the output Layer (all first node)
+      let maxPool2Layer = cnn[10];
+      let maxPool2Layer1stNode = maxPool2Layer[0];
+      const outputMatrix = {
+        inputMatrix: maxPool2Layer1stNode.output.flat(),
+      };
+      saveJsonObjToFile(outputMatrix, "outputData.json");
+
+      let outputLayer = cnn[11];
+      let labels = [
+        "highway",
+        "forest",
+        "river",
+        "permanentcrop",
+        "industrial",
+        "annualcrop",
+        "sealake",
+        "herbaceous",
+        "residential",
+        "pasture",
+      ];
+      for (let i = 0; i < 10; i++) {
+        let nodeWeights = outputLayer[i].inputLinks.slice(0, 168);
+        let weights = [];
+        for (let j = 0; j < 169; j++) {
+          weights[j] = outputLayer[i].inputLinks[j].weight;
+        }
+
+        const outputDetail = {
+          label: labels[i],
+          logit: outputLayer[i].logit,
+          bias: outputLayer[i].bias,
+          weights: weights,
+        };
+
+        console.log(outputDetail);
+        if (outputDetail.label == "pasture") {
+          saveJsonObjToFile(
+            outputDetail,
+            outputDetail.label + "OutputData.json"
+          );
+        }
+      }
 
       // initializing a JavaScript object
       const convDetail = {
-        inputMatrix: redBand.output,
-        kernelMatrix: kernel,
+        inputMatrix: redBand.output.flat(),
+        kernelMatrix: kernel.flat(),
       };
 
-      saveJsonObjToFile(convDetail);
-      function saveJsonObjToFile(saveObj) {
+      const actDetail = {
+        inputMatrix: tenthNode.output.flat(),
+      };
+
+      // const outputDetail {
+      //   inputMatrix
+      // }
+
+      // saveJsonObjToFile(convDetail, "convData.json");
+      // saveJsonObjToFile(actDetail, "activationData.json");
+      // saveJsonObjToFile(outputDetail, "outputData.json");
+      function saveJsonObjToFile(saveObj, fileName) {
         // const saveObj = { a: 3 }; // tmp
 
         // file setting
         const text = JSON.stringify(saveObj);
-        const name = "sample.json";
+        const name = fileName;
         const type = "text/plain";
 
         // create file
